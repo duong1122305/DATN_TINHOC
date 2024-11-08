@@ -101,9 +101,10 @@
             label29 = new Label();
             txt_tencot = new TextBox();
             tabPage3 = new TabPage();
+            groupBox6 = new GroupBox();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
-            groupBox6 = new GroupBox();
+            groupBox7 = new GroupBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -865,6 +866,7 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(groupBox7);
             tabPage3.Controls.Add(groupBox6);
             tabPage3.Location = new Point(4, 29);
             tabPage3.Margin = new Padding(3, 4, 3, 4);
@@ -873,6 +875,15 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "DIỆN TÍCH CỐT THÉP";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            groupBox6.Location = new Point(127, 47);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Size = new Size(250, 125);
+            groupBox6.TabIndex = 0;
+            groupBox6.TabStop = false;
+            groupBox6.Text = "groupBox6";
             // 
             // tabPage4
             // 
@@ -894,14 +905,14 @@
             tabPage5.Text = "HƯỚNG DẪN";
             tabPage5.UseVisualStyleBackColor = true;
             // 
-            // groupBox6
+            // groupBox7
             // 
-            groupBox6.Location = new Point(127, 47);
-            groupBox6.Name = "groupBox6";
-            groupBox6.Size = new Size(250, 125);
-            groupBox6.TabIndex = 0;
-            groupBox6.TabStop = false;
-            groupBox6.Text = "groupBox6";
+            groupBox7.Location = new Point(505, 177);
+            groupBox7.Name = "groupBox7";
+            groupBox7.Size = new Size(250, 125);
+            groupBox7.TabIndex = 1;
+            groupBox7.TabStop = false;
+            groupBox7.Text = "groupBox7";
             // 
             // Form1
             // 
@@ -1010,5 +1021,6 @@
         private Label label31;
         private Label label30;
         private GroupBox groupBox6;
+        private GroupBox groupBox7;
     }
 }
