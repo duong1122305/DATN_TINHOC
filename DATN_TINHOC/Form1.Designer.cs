@@ -101,10 +101,24 @@
             label29 = new Label();
             txt_tencot = new TextBox();
             tabPage3 = new TabPage();
-            groupBox6 = new GroupBox();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
-            groupBox7 = new GroupBox();
+            btm_tinhtoan = new Button();
+            dgv_tinhtoan = new DataGridView();
+            groupBox6 = new GroupBox();
+            label37 = new Label();
+            label38 = new Label();
+            label39 = new Label();
+            label40 = new Label();
+            textBox1 = new TextBox();
+            textBox2 = new TextBox();
+            textBox3 = new TextBox();
+            comboBox1 = new ComboBox();
+            dataGridView2 = new DataGridView();
+            btn_load = new Button();
+            btn_suathep = new Button();
+            btn_xoathep = new Button();
+            btn_kiemtra = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -115,6 +129,10 @@
             groupBox5.SuspendLayout();
             groupBox4.SuspendLayout();
             tabPage3.SuspendLayout();
+            tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgv_tinhtoan).BeginInit();
+            groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -639,11 +657,14 @@
             // 
             // dgv_thongso
             // 
+            dgv_thongso.AllowUserToAddRows = false;
+            dgv_thongso.AllowUserToDeleteRows = false;
             dgv_thongso.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgv_thongso.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgv_thongso.Location = new Point(7, 347);
             dgv_thongso.Margin = new Padding(3, 4, 3, 4);
             dgv_thongso.Name = "dgv_thongso";
+            dgv_thongso.ReadOnly = true;
             dgv_thongso.RowHeadersWidth = 51;
             dgv_thongso.RowTemplate.Height = 25;
             dgv_thongso.Size = new Size(1127, 268);
@@ -866,8 +887,8 @@
             // 
             // tabPage3
             // 
-            tabPage3.Controls.Add(groupBox7);
-            tabPage3.Controls.Add(groupBox6);
+            tabPage3.Controls.Add(dgv_tinhtoan);
+            tabPage3.Controls.Add(btm_tinhtoan);
             tabPage3.Location = new Point(4, 29);
             tabPage3.Margin = new Padding(3, 4, 3, 4);
             tabPage3.Name = "tabPage3";
@@ -876,17 +897,11 @@
             tabPage3.Text = "DIỆN TÍCH CỐT THÉP";
             tabPage3.UseVisualStyleBackColor = true;
             // 
-            // groupBox6
-            // 
-            groupBox6.Location = new Point(127, 47);
-            groupBox6.Name = "groupBox6";
-            groupBox6.Size = new Size(250, 125);
-            groupBox6.TabIndex = 0;
-            groupBox6.TabStop = false;
-            groupBox6.Text = "groupBox6";
-            // 
             // tabPage4
             // 
+            tabPage4.Controls.Add(btn_kiemtra);
+            tabPage4.Controls.Add(dataGridView2);
+            tabPage4.Controls.Add(groupBox6);
             tabPage4.Location = new Point(4, 29);
             tabPage4.Margin = new Padding(3, 4, 3, 4);
             tabPage4.Name = "tabPage4";
@@ -905,14 +920,162 @@
             tabPage5.Text = "HƯỚNG DẪN";
             tabPage5.UseVisualStyleBackColor = true;
             // 
-            // groupBox7
+            // btm_tinhtoan
             // 
-            groupBox7.Location = new Point(505, 177);
-            groupBox7.Name = "groupBox7";
-            groupBox7.Size = new Size(250, 125);
-            groupBox7.TabIndex = 1;
-            groupBox7.TabStop = false;
-            groupBox7.Text = "groupBox7";
+            btm_tinhtoan.Location = new Point(465, 35);
+            btm_tinhtoan.Name = "btm_tinhtoan";
+            btm_tinhtoan.Size = new Size(94, 29);
+            btm_tinhtoan.TabIndex = 0;
+            btm_tinhtoan.Text = "Tính toán";
+            btm_tinhtoan.UseVisualStyleBackColor = true;
+            // 
+            // dgv_tinhtoan
+            // 
+            dgv_tinhtoan.AllowUserToAddRows = false;
+            dgv_tinhtoan.AllowUserToDeleteRows = false;
+            dgv_tinhtoan.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgv_tinhtoan.Location = new Point(0, 87);
+            dgv_tinhtoan.Name = "dgv_tinhtoan";
+            dgv_tinhtoan.ReadOnly = true;
+            dgv_tinhtoan.RowHeadersWidth = 51;
+            dgv_tinhtoan.RowTemplate.Height = 29;
+            dgv_tinhtoan.Size = new Size(1139, 443);
+            dgv_tinhtoan.TabIndex = 1;
+            // 
+            // groupBox6
+            // 
+            groupBox6.Controls.Add(btn_xoathep);
+            groupBox6.Controls.Add(btn_suathep);
+            groupBox6.Controls.Add(btn_load);
+            groupBox6.Controls.Add(comboBox1);
+            groupBox6.Controls.Add(textBox3);
+            groupBox6.Controls.Add(textBox2);
+            groupBox6.Controls.Add(textBox1);
+            groupBox6.Controls.Add(label40);
+            groupBox6.Controls.Add(label39);
+            groupBox6.Controls.Add(label38);
+            groupBox6.Controls.Add(label37);
+            groupBox6.Location = new Point(254, 18);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Size = new Size(544, 254);
+            groupBox6.TabIndex = 0;
+            groupBox6.TabStop = false;
+            groupBox6.Text = "groupBox6";
+            // 
+            // label37
+            // 
+            label37.AutoSize = true;
+            label37.Location = new Point(33, 43);
+            label37.Name = "label37";
+            label37.Size = new Size(57, 20);
+            label37.TabIndex = 0;
+            label37.Text = "Tên cột";
+            // 
+            // label38
+            // 
+            label38.AutoSize = true;
+            label38.Location = new Point(33, 85);
+            label38.Name = "label38";
+            label38.Size = new Size(85, 20);
+            label38.TabIndex = 0;
+            label38.Text = "Thép bố trí:";
+            // 
+            // label39
+            // 
+            label39.AutoSize = true;
+            label39.Location = new Point(33, 127);
+            label39.Name = "label39";
+            label39.Size = new Size(123, 20);
+            label39.TabIndex = 0;
+            label39.Text = "Đường kính thép:";
+            // 
+            // label40
+            // 
+            label40.AutoSize = true;
+            label40.Location = new Point(33, 170);
+            label40.Name = "label40";
+            label40.Size = new Size(103, 20);
+            label40.TabIndex = 0;
+            label40.Text = "Số lượng thép";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(172, 40);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(242, 27);
+            textBox1.TabIndex = 1;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(172, 82);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(242, 27);
+            textBox2.TabIndex = 1;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(172, 167);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(242, 27);
+            textBox3.TabIndex = 1;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "6", "8", "10", "12", "14", "16", "18", "20", "22", "25", "28", "30", "32", "36", "40" });
+            comboBox1.Location = new Point(169, 125);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(246, 28);
+            comboBox1.TabIndex = 2;
+            // 
+            // dataGridView2
+            // 
+            dataGridView2.AllowUserToAddRows = false;
+            dataGridView2.AllowUserToDeleteRows = false;
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Location = new Point(13, 293);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.ReadOnly = true;
+            dataGridView2.RowHeadersWidth = 51;
+            dataGridView2.RowTemplate.Height = 29;
+            dataGridView2.Size = new Size(1111, 227);
+            dataGridView2.TabIndex = 1;
+            // 
+            // btn_load
+            // 
+            btn_load.Location = new Point(434, 36);
+            btn_load.Name = "btn_load";
+            btn_load.Size = new Size(94, 34);
+            btn_load.TabIndex = 3;
+            btn_load.Text = "Tải dữ liệu";
+            btn_load.UseVisualStyleBackColor = true;
+            // 
+            // btn_suathep
+            // 
+            btn_suathep.Location = new Point(434, 98);
+            btn_suathep.Name = "btn_suathep";
+            btn_suathep.Size = new Size(94, 34);
+            btn_suathep.TabIndex = 3;
+            btn_suathep.Text = "Sửa thép";
+            btn_suathep.UseVisualStyleBackColor = true;
+            // 
+            // btn_xoathep
+            // 
+            btn_xoathep.Location = new Point(434, 160);
+            btn_xoathep.Name = "btn_xoathep";
+            btn_xoathep.Size = new Size(94, 34);
+            btn_xoathep.TabIndex = 3;
+            btn_xoathep.Text = "Xóa thép";
+            btn_xoathep.UseVisualStyleBackColor = true;
+            // 
+            // btn_kiemtra
+            // 
+            btn_kiemtra.Location = new Point(516, 535);
+            btn_kiemtra.Name = "btn_kiemtra";
+            btn_kiemtra.Size = new Size(94, 34);
+            btn_kiemtra.TabIndex = 4;
+            btn_kiemtra.Text = "Kiểm tra";
+            btn_kiemtra.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -940,6 +1103,11 @@
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
             tabPage3.ResumeLayout(false);
+            tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgv_tinhtoan).EndInit();
+            groupBox6.ResumeLayout(false);
+            groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ResumeLayout(false);
         }
 
@@ -1020,7 +1188,21 @@
         private Label label32;
         private Label label31;
         private Label label30;
+        private DataGridView dgv_tinhtoan;
+        private Button btm_tinhtoan;
         private GroupBox groupBox6;
-        private GroupBox groupBox7;
+        private Label label40;
+        private Label label39;
+        private Label label38;
+        private Label label37;
+        private DataGridView dataGridView2;
+        private ComboBox comboBox1;
+        private TextBox textBox3;
+        private TextBox textBox2;
+        private TextBox textBox1;
+        private Button btn_kiemtra;
+        private Button btn_xoathep;
+        private Button btn_suathep;
+        private Button btn_load;
     }
 }
