@@ -211,7 +211,7 @@ namespace DATN_TINHOC
                         MessageBox.Show("Cột bạn thêm có tên bị trùng! Mời bạn nhập lại!", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                } 
+                }
             }
 
             if (Convert.ToDouble(txt_Mx.Text) == 0 && Convert.ToDouble(txt_My.Text) == 0)
