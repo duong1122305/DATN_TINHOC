@@ -101,24 +101,24 @@
             label29 = new Label();
             txt_tencot = new TextBox();
             tabPage3 = new TabPage();
-            tabPage4 = new TabPage();
-            tabPage5 = new TabPage();
-            btm_tinhtoan = new Button();
             dgv_tinhtoan = new DataGridView();
-            groupBox6 = new GroupBox();
-            label37 = new Label();
-            label38 = new Label();
-            label39 = new Label();
-            label40 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            comboBox1 = new ComboBox();
-            dataGridView2 = new DataGridView();
-            btn_load = new Button();
-            btn_suathep = new Button();
-            btn_xoathep = new Button();
+            btm_tinhtoan = new Button();
+            tabPage4 = new TabPage();
             btn_kiemtra = new Button();
+            dgv_cotthep = new DataGridView();
+            groupBox6 = new GroupBox();
+            btn_xoathep = new Button();
+            btn_suathep = new Button();
+            btn_load = new Button();
+            cbb_dkthep = new ComboBox();
+            txt_soluongthep = new TextBox();
+            txt_thepbotri = new TextBox();
+            txt_tencotthep = new TextBox();
+            label40 = new Label();
+            label39 = new Label();
+            label38 = new Label();
+            label37 = new Label();
+            tabPage5 = new TabPage();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -129,10 +129,10 @@
             groupBox5.SuspendLayout();
             groupBox4.SuspendLayout();
             tabPage3.SuspendLayout();
-            tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_tinhtoan).BeginInit();
+            tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgv_cotthep).BeginInit();
             groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -669,6 +669,7 @@
             dgv_thongso.RowTemplate.Height = 25;
             dgv_thongso.Size = new Size(1127, 268);
             dgv_thongso.TabIndex = 5;
+            dgv_thongso.CellMouseClick += dgv_thongso_CellMouseClick;
             // 
             // btn_xoa
             // 
@@ -897,38 +898,6 @@
             tabPage3.Text = "DIỆN TÍCH CỐT THÉP";
             tabPage3.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
-            // 
-            tabPage4.Controls.Add(btn_kiemtra);
-            tabPage4.Controls.Add(dataGridView2);
-            tabPage4.Controls.Add(groupBox6);
-            tabPage4.Location = new Point(4, 29);
-            tabPage4.Margin = new Padding(3, 4, 3, 4);
-            tabPage4.Name = "tabPage4";
-            tabPage4.Size = new Size(1142, 627);
-            tabPage4.TabIndex = 3;
-            tabPage4.Text = "CHỌN CỐT THÉP";
-            tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // tabPage5
-            // 
-            tabPage5.Location = new Point(4, 29);
-            tabPage5.Margin = new Padding(3, 4, 3, 4);
-            tabPage5.Name = "tabPage5";
-            tabPage5.Size = new Size(1142, 627);
-            tabPage5.TabIndex = 4;
-            tabPage5.Text = "HƯỚNG DẪN";
-            tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // btm_tinhtoan
-            // 
-            btm_tinhtoan.Location = new Point(465, 35);
-            btm_tinhtoan.Name = "btm_tinhtoan";
-            btm_tinhtoan.Size = new Size(94, 29);
-            btm_tinhtoan.TabIndex = 0;
-            btm_tinhtoan.Text = "Tính toán";
-            btm_tinhtoan.UseVisualStyleBackColor = true;
-            // 
             // dgv_tinhtoan
             // 
             dgv_tinhtoan.AllowUserToAddRows = false;
@@ -942,15 +911,62 @@
             dgv_tinhtoan.Size = new Size(1139, 443);
             dgv_tinhtoan.TabIndex = 1;
             // 
+            // btm_tinhtoan
+            // 
+            btm_tinhtoan.Location = new Point(465, 35);
+            btm_tinhtoan.Name = "btm_tinhtoan";
+            btm_tinhtoan.Size = new Size(94, 29);
+            btm_tinhtoan.TabIndex = 0;
+            btm_tinhtoan.Text = "Tính toán";
+            btm_tinhtoan.UseVisualStyleBackColor = true;
+            btm_tinhtoan.Click += btm_tinhtoan_Click;
+            // 
+            // tabPage4
+            // 
+            tabPage4.Controls.Add(btn_kiemtra);
+            tabPage4.Controls.Add(dgv_cotthep);
+            tabPage4.Controls.Add(groupBox6);
+            tabPage4.Location = new Point(4, 29);
+            tabPage4.Margin = new Padding(3, 4, 3, 4);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Size = new Size(1142, 627);
+            tabPage4.TabIndex = 3;
+            tabPage4.Text = "CHỌN CỐT THÉP";
+            tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // btn_kiemtra
+            // 
+            btn_kiemtra.Location = new Point(516, 535);
+            btn_kiemtra.Name = "btn_kiemtra";
+            btn_kiemtra.Size = new Size(94, 34);
+            btn_kiemtra.TabIndex = 4;
+            btn_kiemtra.Text = "Kiểm tra";
+            btn_kiemtra.UseVisualStyleBackColor = true;
+            btn_kiemtra.Click += btn_kiemtra_Click;
+            // 
+            // dgv_cotthep
+            // 
+            dgv_cotthep.AllowUserToAddRows = false;
+            dgv_cotthep.AllowUserToDeleteRows = false;
+            dgv_cotthep.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgv_cotthep.Location = new Point(13, 293);
+            dgv_cotthep.Name = "dgv_cotthep";
+            dgv_cotthep.ReadOnly = true;
+            dgv_cotthep.RowHeadersWidth = 51;
+            dgv_cotthep.RowTemplate.Height = 29;
+            dgv_cotthep.Size = new Size(1111, 227);
+            dgv_cotthep.TabIndex = 1;
+            dgv_cotthep.CellClick += dgv_cotthep_CellClick;
+            // 
             // groupBox6
             // 
             groupBox6.Controls.Add(btn_xoathep);
             groupBox6.Controls.Add(btn_suathep);
             groupBox6.Controls.Add(btn_load);
-            groupBox6.Controls.Add(comboBox1);
-            groupBox6.Controls.Add(textBox3);
-            groupBox6.Controls.Add(textBox2);
-            groupBox6.Controls.Add(textBox1);
+            groupBox6.Controls.Add(cbb_dkthep);
+            groupBox6.Controls.Add(txt_soluongthep);
+            groupBox6.Controls.Add(txt_thepbotri);
+            groupBox6.Controls.Add(txt_tencotthep);
             groupBox6.Controls.Add(label40);
             groupBox6.Controls.Add(label39);
             groupBox6.Controls.Add(label38);
@@ -960,34 +976,67 @@
             groupBox6.Size = new Size(544, 254);
             groupBox6.TabIndex = 0;
             groupBox6.TabStop = false;
-            groupBox6.Text = "groupBox6";
+            groupBox6.Text = "Bảng chọn cốt thép";
             // 
-            // label37
+            // btn_xoathep
             // 
-            label37.AutoSize = true;
-            label37.Location = new Point(33, 43);
-            label37.Name = "label37";
-            label37.Size = new Size(57, 20);
-            label37.TabIndex = 0;
-            label37.Text = "Tên cột";
+            btn_xoathep.Location = new Point(434, 160);
+            btn_xoathep.Name = "btn_xoathep";
+            btn_xoathep.Size = new Size(94, 34);
+            btn_xoathep.TabIndex = 3;
+            btn_xoathep.Text = "Xóa thép";
+            btn_xoathep.UseVisualStyleBackColor = true;
+            btn_xoathep.Click += btn_xoathep_Click;
             // 
-            // label38
+            // btn_suathep
             // 
-            label38.AutoSize = true;
-            label38.Location = new Point(33, 85);
-            label38.Name = "label38";
-            label38.Size = new Size(85, 20);
-            label38.TabIndex = 0;
-            label38.Text = "Thép bố trí:";
+            btn_suathep.Location = new Point(434, 98);
+            btn_suathep.Name = "btn_suathep";
+            btn_suathep.Size = new Size(94, 34);
+            btn_suathep.TabIndex = 3;
+            btn_suathep.Text = "Sửa thép";
+            btn_suathep.UseVisualStyleBackColor = true;
+            btn_suathep.Click += btn_suathep_Click;
             // 
-            // label39
+            // btn_load
             // 
-            label39.AutoSize = true;
-            label39.Location = new Point(33, 127);
-            label39.Name = "label39";
-            label39.Size = new Size(123, 20);
-            label39.TabIndex = 0;
-            label39.Text = "Đường kính thép:";
+            btn_load.Location = new Point(434, 36);
+            btn_load.Name = "btn_load";
+            btn_load.Size = new Size(94, 34);
+            btn_load.TabIndex = 3;
+            btn_load.Text = "Tải dữ liệu";
+            btn_load.UseVisualStyleBackColor = true;
+            btn_load.Click += btn_load_Click;
+            // 
+            // cbb_dkthep
+            // 
+            cbb_dkthep.FormattingEnabled = true;
+            cbb_dkthep.Items.AddRange(new object[] { "6", "8", "10", "12", "14", "16", "18", "20", "22", "25", "28", "30", "32", "36", "40" });
+            cbb_dkthep.Location = new Point(169, 125);
+            cbb_dkthep.Name = "cbb_dkthep";
+            cbb_dkthep.Size = new Size(246, 28);
+            cbb_dkthep.TabIndex = 2;
+            // 
+            // txt_soluongthep
+            // 
+            txt_soluongthep.Location = new Point(172, 167);
+            txt_soluongthep.Name = "txt_soluongthep";
+            txt_soluongthep.Size = new Size(242, 27);
+            txt_soluongthep.TabIndex = 1;
+            // 
+            // txt_thepbotri
+            // 
+            txt_thepbotri.Location = new Point(172, 82);
+            txt_thepbotri.Name = "txt_thepbotri";
+            txt_thepbotri.Size = new Size(242, 27);
+            txt_thepbotri.TabIndex = 1;
+            // 
+            // txt_tencotthep
+            // 
+            txt_tencotthep.Location = new Point(172, 40);
+            txt_tencotthep.Name = "txt_tencotthep";
+            txt_tencotthep.Size = new Size(242, 27);
+            txt_tencotthep.TabIndex = 1;
             // 
             // label40
             // 
@@ -998,84 +1047,42 @@
             label40.TabIndex = 0;
             label40.Text = "Số lượng thép";
             // 
-            // textBox1
+            // label39
             // 
-            textBox1.Location = new Point(172, 40);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(242, 27);
-            textBox1.TabIndex = 1;
+            label39.AutoSize = true;
+            label39.Location = new Point(33, 127);
+            label39.Name = "label39";
+            label39.Size = new Size(123, 20);
+            label39.TabIndex = 0;
+            label39.Text = "Đường kính thép:";
             // 
-            // textBox2
+            // label38
             // 
-            textBox2.Location = new Point(172, 82);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(242, 27);
-            textBox2.TabIndex = 1;
+            label38.AutoSize = true;
+            label38.Location = new Point(33, 85);
+            label38.Name = "label38";
+            label38.Size = new Size(85, 20);
+            label38.TabIndex = 0;
+            label38.Text = "Thép bố trí:";
             // 
-            // textBox3
+            // label37
             // 
-            textBox3.Location = new Point(172, 167);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(242, 27);
-            textBox3.TabIndex = 1;
+            label37.AutoSize = true;
+            label37.Location = new Point(33, 43);
+            label37.Name = "label37";
+            label37.Size = new Size(57, 20);
+            label37.TabIndex = 0;
+            label37.Text = "Tên cột";
             // 
-            // comboBox1
+            // tabPage5
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "6", "8", "10", "12", "14", "16", "18", "20", "22", "25", "28", "30", "32", "36", "40" });
-            comboBox1.Location = new Point(169, 125);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(246, 28);
-            comboBox1.TabIndex = 2;
-            // 
-            // dataGridView2
-            // 
-            dataGridView2.AllowUserToAddRows = false;
-            dataGridView2.AllowUserToDeleteRows = false;
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(13, 293);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.ReadOnly = true;
-            dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.RowTemplate.Height = 29;
-            dataGridView2.Size = new Size(1111, 227);
-            dataGridView2.TabIndex = 1;
-            // 
-            // btn_load
-            // 
-            btn_load.Location = new Point(434, 36);
-            btn_load.Name = "btn_load";
-            btn_load.Size = new Size(94, 34);
-            btn_load.TabIndex = 3;
-            btn_load.Text = "Tải dữ liệu";
-            btn_load.UseVisualStyleBackColor = true;
-            // 
-            // btn_suathep
-            // 
-            btn_suathep.Location = new Point(434, 98);
-            btn_suathep.Name = "btn_suathep";
-            btn_suathep.Size = new Size(94, 34);
-            btn_suathep.TabIndex = 3;
-            btn_suathep.Text = "Sửa thép";
-            btn_suathep.UseVisualStyleBackColor = true;
-            // 
-            // btn_xoathep
-            // 
-            btn_xoathep.Location = new Point(434, 160);
-            btn_xoathep.Name = "btn_xoathep";
-            btn_xoathep.Size = new Size(94, 34);
-            btn_xoathep.TabIndex = 3;
-            btn_xoathep.Text = "Xóa thép";
-            btn_xoathep.UseVisualStyleBackColor = true;
-            // 
-            // btn_kiemtra
-            // 
-            btn_kiemtra.Location = new Point(516, 535);
-            btn_kiemtra.Name = "btn_kiemtra";
-            btn_kiemtra.Size = new Size(94, 34);
-            btn_kiemtra.TabIndex = 4;
-            btn_kiemtra.Text = "Kiểm tra";
-            btn_kiemtra.UseVisualStyleBackColor = true;
+            tabPage5.Location = new Point(4, 29);
+            tabPage5.Margin = new Padding(3, 4, 3, 4);
+            tabPage5.Name = "tabPage5";
+            tabPage5.Size = new Size(1142, 627);
+            tabPage5.TabIndex = 4;
+            tabPage5.Text = "HƯỚNG DẪN";
+            tabPage5.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -1103,11 +1110,11 @@
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
             tabPage3.ResumeLayout(false);
-            tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgv_tinhtoan).EndInit();
+            tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgv_cotthep).EndInit();
             groupBox6.ResumeLayout(false);
             groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ResumeLayout(false);
         }
 
@@ -1195,11 +1202,11 @@
         private Label label39;
         private Label label38;
         private Label label37;
-        private DataGridView dataGridView2;
-        private ComboBox comboBox1;
-        private TextBox textBox3;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private DataGridView dgv_cotthep;
+        private ComboBox cbb_dkthep;
+        private TextBox txt_soluongthep;
+        private TextBox txt_thepbotri;
+        private TextBox txt_tencotthep;
         private Button btn_kiemtra;
         private Button btn_xoathep;
         private Button btn_suathep;

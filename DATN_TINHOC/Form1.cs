@@ -1,4 +1,5 @@
-﻿using DATN_TINHOC.Models;
+﻿using DATN_TINHOC.ChuongTrinh;
+using DATN_TINHOC.Models;
 
 namespace DATN_TINHOC
 {
@@ -17,20 +18,71 @@ namespace DATN_TINHOC
             btn_luu.Enabled = true;
             btn_huy.Enabled = false;
 
-            dgv_thongso.DataSource = null;
-            dgv_thongso.DataSource = thongSoCots;
-
-            dgv_thongso.Columns[0].HeaderText = "STT";
-            dgv_thongso.Columns[1].HeaderText = "Tên cột";
-            dgv_thongso.Columns[2].HeaderText = "b (m)";
-            dgv_thongso.Columns[3].HeaderText = "h (m)";
-            dgv_thongso.Columns[4].HeaderText = "L (m)";
-            dgv_thongso.Columns[5].HeaderText = "a (m)";
-            dgv_thongso.Columns[6].HeaderText = "Mx (kNm)";
-            dgv_thongso.Columns[7].HeaderText = "My (kNm)";
-            dgv_thongso.Columns[8].HeaderText = "N (m)";
+            TaoDGVThongSoCot(dgv_thongso);
+            TaoDGVTinhToan(dgv_tinhtoan);
+            TaoDGVCotThep(dgv_cotthep);
         }
         #endregion
+
+        #region tao_cot_trong_dataGridView
+        private void TaoDGVThongSoCot(DataGridView dgv)
+        {
+            dgv.DataSource = null;
+            dgv.DataSource = thongSoCots;
+
+            dgv.Columns[0].HeaderText = "STT";
+            dgv.Columns[1].HeaderText = "Tên cột";
+            dgv.Columns[2].HeaderText = "b (m)";
+            dgv.Columns[3].HeaderText = "h (m)";
+            dgv.Columns[4].HeaderText = "L (m)";
+            dgv.Columns[5].HeaderText = "a (m)";
+            dgv.Columns[6].HeaderText = "Mx (kNm)";
+            dgv.Columns[7].HeaderText = "My (kNm)";
+            dgv.Columns[8].HeaderText = "N (m)";
+        }
+
+        private void TaoDGVTinhToan(DataGridView dgv)
+        {
+            dgv.DataSource = null;
+
+            while (dgv.Columns.Count < 11)
+            {
+                dgv.Columns.Add(new DataGridViewTextBoxColumn());
+            }
+
+            dgv.Columns[0].HeaderText = "Tên cột";
+            dgv.Columns[1].HeaderText = "Trường hợp\nTính toán";
+            dgv.Columns[2].HeaderText = "b (m)";
+            dgv.Columns[3].HeaderText = "h (m)";
+            dgv.Columns[4].HeaderText = "L (m)";
+            dgv.Columns[5].HeaderText = "Mx (kNm)";
+            dgv.Columns[6].HeaderText = "My (kNm)";
+            dgv.Columns[7].HeaderText = "Mtt (kNm)";
+            dgv.Columns[8].HeaderText = "N (kN)";
+            dgv.Columns[9].HeaderText = "As (cm2)";
+            dgv.Columns[10].HeaderText = "µ (%)";
+        }
+
+        private void TaoDGVCotThep(DataGridView dgv)
+        {
+            dgv.DataSource = null;
+
+            while (dgv.Columns.Count < 8)
+            {
+                dgv.Columns.Add(new DataGridViewTextBoxColumn());
+            }
+
+            dgv.Columns[0].HeaderText = "Tên cột";
+            dgv.Columns[1].HeaderText = "Bố trí thép";
+            dgv.Columns[2].HeaderText = "Astt (cm2)";
+            dgv.Columns[3].HeaderText = "µ (%)";
+            dgv.Columns[4].HeaderText = "Astc (cm2)";
+            dgv.Columns[5].HeaderText = "Kiểm tra";
+            dgv.Columns[6].HeaderText = "DK Thép đai";
+            dgv.Columns[7].HeaderText = "Khoảng cách thép đai";
+        }
+        #endregion
+
 
         #region be_tong_changed
         private void cbb_betong_SelectedIndexChanged(object sender, EventArgs e)
@@ -287,6 +339,169 @@ namespace DATN_TINHOC
             {
                 MessageBox.Show("Chương trình chưa hỗ trợ tính toán cột nén lệch tâm xiên.", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+        #endregion
+
+        #region btn_tinhtoan_click
+        private void btm_tinhtoan_Click(object sender, EventArgs e)
+        {
+            dgv_tinhtoan.Rows.Clear();
+
+            if (dgv_thongso.Rows.Count <= 0)
+            {
+                MessageBox.Show("Danh sách cột đang trống! Mời bạn nhập dữ liệu vào bảng!", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                foreach (DataGridViewRow row in dgv_thongso.Rows)
+                {
+                    if (Convert.ToInt64(row.Cells[6].Value) == 0 && Convert.ToInt64(row.Cells[7].Value) == 0)
+                    {
+                        double b = Convert.ToDouble(row.Cells[2].Value);
+                        double h = Convert.ToDouble(row.Cells[3].Value);
+                        double L = Convert.ToDouble(row.Cells[4].Value);
+                        double N = Convert.ToDouble(row.Cells[8].Value);
+                        double Rb = Convert.ToDouble(txt_rbbetong.Text);
+                        double Rsc_Doc = Convert.ToDouble(txt_rscthepdoc.Text);
+                        double Asttdungtam = 0;
+                        double Mttdungtam = 0;
+                        double Muyasdungtam = 0;
+
+                        TinhToanSoLieu.Tinhascotnendungtam(b, h, L, N, Rb, Rsc_Doc, out Asttdungtam, out Mttdungtam, out Muyasdungtam);
+
+                        dgv_tinhtoan.Rows.Add(
+                            row.Cells[1].Value,
+                            "Nén đúng tâm",
+                            row.Cells[2].Value,
+                            row.Cells[3].Value,
+                            row.Cells[4].Value,
+                            row.Cells[6].Value,
+                            row.Cells[7].Value,
+                            Mttdungtam,
+                            row.Cells[8].Value,
+                            Asttdungtam,
+                            Muyasdungtam);
+
+                    }
+                    else if (Convert.ToInt64(row.Cells[6].Value) > 10 * Convert.ToInt64(row.Cells[7].Value) || Convert.ToInt64(row.Cells[7].Value) > 10 * Convert.ToInt64(row.Cells[6].Value))
+                    {
+                        double b = Convert.ToDouble(row.Cells[2].Value);
+                        double h = Convert.ToDouble(row.Cells[3].Value);
+                        double L = Convert.ToDouble(row.Cells[4].Value);
+                        double a = Convert.ToDouble(row.Cells[5].Value);
+                        double Mx = Convert.ToDouble(row.Cells[6].Value);
+                        double My = Convert.ToDouble(row.Cells[7].Value);
+                        double N = Convert.ToDouble(row.Cells[8].Value);
+                        double Rb = Convert.ToDouble(txt_rbbetong.Text);
+                        double Eb = Convert.ToDouble(txt_ebetong.Text);
+                        double Es_Doc = Convert.ToDouble(txt_ethepdoc.Text);
+                        double Rs_Doc = Convert.ToDouble(txt_rsthepdoc.Text);
+                        double Rsc_Doc = Convert.ToDouble(txt_rscthepdoc.Text);
+                        double Alpha_R = 0;
+                        double Asttlechtam = 0;
+                        double Mttlechtam = 0;
+                        double Muyaslechtam = 0;
+
+                        TinhToanSoLieu.XacDinhAlphaR(cbb_betong.Text, cbb_thepdoc.Text, out Alpha_R);
+                        TinhToanSoLieu.Tinhascotlechtamphang(b, h, L, a, Mx, My, N, Rb, Eb, Es_Doc, Rs_Doc, Rsc_Doc, Alpha_R,
+                            out Asttlechtam,
+                            out Mttlechtam,
+                            out Muyaslechtam);
+
+                        dgv_tinhtoan.Rows.Add(row.Cells[1].Value,
+                            "Nén lệch tâm phẳng",
+                            row.Cells[2].Value,
+                            row.Cells[3].Value,
+                            row.Cells[4].Value,
+                            row.Cells[6].Value,
+                            row.Cells[7].Value,
+                            Mttlechtam,
+                            row.Cells[8].Value,
+                            Asttlechtam,
+                            Muyaslechtam);
+                    }
+                }
+
+                MessageBox.Show("Đã tính toán xong!", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btn_load.Enabled = true;
+                dgv_thongso.ClearSelection();
+                dgv_tinhtoan.ClearSelection();
+            }
+        }
+        #endregion
+
+        #region btn_load_click
+        private void btn_load_Click(object sender, EventArgs e)
+        {
+            dgv_cotthep.Rows.Clear();
+            if (dgv_tinhtoan.Rows.Count <= 0)
+            {
+                MessageBox.Show("Danh sách cột đang trống! Mời bạn nhập dữ liệu vào bảng!", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            foreach (DataGridViewRow row in dgv_tinhtoan.Rows)
+            {
+                dgv_cotthep.Rows.Add(row.Cells[0].Value, "", row.Cells[9].Value, "", "", "", "", "");
+            }
+
+            MessageBox.Show("Đã tải dữ liệu cột thành công!", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            dgv_thongso.ClearSelection();
+            dgv_tinhtoan.ClearSelection();
+            dgv_cotthep.ClearSelection();
+        }
+        #endregion
+
+        #region btn_suaThep_click
+        private void btn_suathep_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(cbb_dkthep.Text) || string.IsNullOrEmpty(txt_soluongthep.Text))
+            {
+                MessageBox.Show("Bạn chưa nhập đủ thông tin thép! Mời bạn nhập lại!", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+
+        }
+        #endregion
+
+        #region btn_xoaThep_Click
+        private void btn_xoathep_Click(object sender, EventArgs e)
+        {
+            throw new Exception();
+        }
+        #endregion
+
+        #region btn_kiemTra_click
+        private void btn_kiemtra_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region dgv_cotthep_CellClick
+        private void dgv_cotthep_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txt_tencotthep.Text = Convert.ToString(dgv_cotthep.CurrentRow.Cells[0].Value);
+            txt_thepbotri.Text = Convert.ToString(dgv_cotthep.CurrentRow.Cells[1].Value);
+            cbb_dkthep.Enabled = true; txt_soluongthep.Enabled = true;
+            btn_suathep.Enabled = true; btn_xoathep.Enabled = true;
+        }
+        #endregion
+
+        #region dgv_thongso_CellMouseClick
+        private void dgv_thongso_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            txt_tencot.Text = dgv_thongso.CurrentRow.Cells[1].Value.ToString();
+            txt_berongb.Text = dgv_thongso.CurrentRow.Cells[2].Value.ToString();
+            txt_chieucaoh.Text = dgv_thongso.CurrentRow.Cells[3].Value.ToString();
+            txt_chieudail.Text = dgv_thongso.CurrentRow.Cells[4].Value.ToString();
+            txt_lopbaove.Text = dgv_thongso.CurrentRow.Cells[5].Value.ToString();
+            txt_Mx.Text = dgv_thongso.CurrentRow.Cells[6].Value.ToString();
+            txt_My.Text = dgv_thongso.CurrentRow.Cells[7].Value.ToString();
+            txt_N.Text = dgv_thongso.CurrentRow.Cells[8].Value.ToString();
+            btn_sua.Enabled = true; 
+            btn_xoa.Enabled = true;
         }
         #endregion
     }
