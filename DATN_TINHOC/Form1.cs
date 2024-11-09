@@ -1,5 +1,6 @@
 ﻿using DATN_TINHOC.ChuongTrinh;
 using DATN_TINHOC.Models;
+using System;
 
 namespace DATN_TINHOC
 {
@@ -461,21 +462,127 @@ namespace DATN_TINHOC
                 return;
             }
 
+            double b = Convert.ToDouble(dgv_thongso.Rows[0].Cells[2].Value);
+            double h = Convert.ToDouble(dgv_thongso.Rows[0].Cells[3].Value);
+            double a = Convert.ToDouble(dgv_thongso.Rows[0].Cells[5].Value);
+            double _dkthep = Convert.ToDouble(cbb_dkthep.Text);
+            double _soluongthep = Convert.ToDouble(txt_soluongthep.Text);
+            double _Asbotri = 0;
 
+            TinhToanSoLieu.TinhAs(_soluongthep, _dkthep, out _Asbotri);
+
+            dgv_thongso.Rows[0].Cells[1].Value = txt_soluongthep.Text + "Ø" + cbb_dkthep.Text;
+            dgv_thongso.Rows[0].Cells[3].Value = Math.Round(((_Asbotri / ((b * (h - a)) * 10000)) * 100), 2);
+            dgv_thongso.Rows[0].Cells[4].Value = _Asbotri;
+            dgv_thongso.Rows[0].Cells[5].Value = "";
+            dgv_thongso.Rows[0].Cells[6].Value = "";
+            dgv_thongso.Rows[0].Cells[7].Value = "";
+
+            MessageBox.Show("Đã sửa thành công! Mời bạn tiếp tục thao tác!", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            cbb_dkthep.Enabled = false;
+            txt_soluongthep.Enabled = false;
+            btn_suathep.Enabled = false;
+            btn_xoathep.Enabled = false;
+            btn_kiemtra.Enabled = true;
+            dgv_thongso.ClearSelection();
+            dgv_tinhtoan.ClearSelection();
+            dgv_cotthep.ClearSelection();
         }
         #endregion
 
         #region btn_xoaThep_Click
         private void btn_xoathep_Click(object sender, EventArgs e)
         {
-            throw new Exception();
+            dgv_thongso.Rows[0].Cells[1].Value = "";
+            dgv_thongso.Rows[0].Cells[3].Value = "";
+            dgv_thongso.Rows[0].Cells[4].Value = "";
+            dgv_thongso.Rows[0].Cells[5].Value = "";
+            dgv_thongso.Rows[0].Cells[6].Value = "";
+            dgv_thongso.Rows[0].Cells[7].Value = "";
+
+            MessageBox.Show("Đã xóa thành công! Mời bạn tiếp tục thao tác!", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            cbb_dkthep.Enabled = false;
+            txt_soluongthep.Enabled = false;
+            btn_suathep.Enabled = false;
+            btn_xoathep.Enabled = false;
+            dgv_thongso.ClearSelection();
+            dgv_tinhtoan.ClearSelection();
+            dgv_cotthep.ClearSelection();
         }
         #endregion
 
         #region btn_kiemTra_click
         private void btn_kiemtra_Click(object sender, EventArgs e)
         {
+            foreach (DataGridViewRow row in dgv_cotthep.Rows)
+            {
+                string _texts = row.Cells[1].Value.ToString();
+                double _dkthep = 0;
+                double _soluongthep = 0;
+                double _Asbotri = 0;
+                double _Astt = Convert.ToDouble(dgv_tinhtoan.Rows[0].Cells[9].Value);
+                double b = Convert.ToDouble(dgv_tinhtoan.Rows[0].Cells[2].Value);
+                double h = Convert.ToDouble(dgv_tinhtoan.Rows[0].Cells[3].Value);
+                double a = Convert.ToDouble(dgv_thongso.Rows[0].Cells[5].Value);
+                double _HamLuong = 0;
+                TinhToanSoLieu.TachText(_texts, out _soluongthep, out _dkthep);
+                TinhToanSoLieu.TinhAs(_soluongthep, _dkthep, out _Asbotri);
+                _HamLuong = ((_Astt + _Asbotri) / ((b * (h - a)) * 10000)) * 100;
+                if (_HamLuong > 0.5)
+                {
+                    if (_HamLuong < 3)
+                    {
+                        row.Cells[5].Value = "Thỏa mãn";
+                        row.Cells[5].Style.BackColor = Color.MediumSpringGreen;
+                        row.Cells[6].Value = "Ø8";
+                        row.Cells[7].Value = "200";
+                    }
+                    else
+                    {
+                        if (_HamLuong < 0.5)
+                        {
+                            _Asbotri = (0.5 * b * (h - a)) / 10000;
+                            row.Cells[5].Value = "Thỏa mãn";
+                            row.Cells[5].Style.BackColor = Color.MediumSpringGreen;
+                            row.Cells[6].Value = "Ø8";
+                            row.Cells[7].Value = "200";
+                        }
+                        else
+                        {
+                            row.Cells[5].Value = "Không thỏa mãn";
+                            row.Cells[5].Style.BackColor = Color.Tomato;
+                        }
+                    }
+                }
+                else
+                {
+                    if (_HamLuong < 0.5)
+                    {
+                        _Asbotri = (0.5 * b * (h - a)) / 10000;
+                        row.Cells[5].Value = "Thỏa mãn";
+                        row.Cells[5].Style.BackColor = Color.MediumSpringGreen;
+                        row.Cells[6].Value = "Ø8";
+                        row.Cells[7].Value = "200";
+                    }
+                    else
+                    {
+                        row.Cells[5].Value = "Không thỏa mãn";
+                        row.Cells[5].Style.BackColor = Color.Tomato;
+                    }
+                }
+            }
 
+            MessageBox.Show("Đã kiểm tra xong! Mời bạn tiếp tục thao tác!", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            cbb_dkthep.Text = "";
+            txt_soluongthep.Clear();
+            txt_soluongthep.Enabled = false;
+            cbb_dkthep.Enabled = false;
+            dgv_thongso.ClearSelection();
+            dgv_tinhtoan.ClearSelection();
+            dgv_cotthep.ClearSelection();
         }
         #endregion
 
@@ -500,7 +607,7 @@ namespace DATN_TINHOC
             txt_Mx.Text = dgv_thongso.CurrentRow.Cells[6].Value.ToString();
             txt_My.Text = dgv_thongso.CurrentRow.Cells[7].Value.ToString();
             txt_N.Text = dgv_thongso.CurrentRow.Cells[8].Value.ToString();
-            btn_sua.Enabled = true; 
+            btn_sua.Enabled = true;
             btn_xoa.Enabled = true;
         }
         #endregion
