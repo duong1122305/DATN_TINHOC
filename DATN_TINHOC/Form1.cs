@@ -471,12 +471,13 @@ namespace DATN_TINHOC
 
             TinhToanSoLieu.TinhAs(_soluongthep, _dkthep, out _Asbotri);
 
-            dgv_thongso.Rows[0].Cells[1].Value = txt_soluongthep.Text + "Ø" + cbb_dkthep.Text;
-            dgv_thongso.Rows[0].Cells[3].Value = Math.Round(((_Asbotri / ((b * (h - a)) * 10000)) * 100), 2);
-            dgv_thongso.Rows[0].Cells[4].Value = _Asbotri;
-            dgv_thongso.Rows[0].Cells[5].Value = "";
-            dgv_thongso.Rows[0].Cells[6].Value = "";
-            dgv_thongso.Rows[0].Cells[7].Value = "";
+            dgv_cotthep.Rows[0].Cells[1].Value = $"{txt_soluongthep.Text}Ø{cbb_dkthep.Text}";
+            dgv_cotthep.Rows[0].Cells[3].Value = Math.Round(((_Asbotri / ((b * (h - a)) * 10000)) * 100), 2);
+            dgv_cotthep.Rows[0].Cells[4].Value = _Asbotri;
+            dgv_cotthep.Rows[0].Cells[5].Value = null;
+            dgv_cotthep.Rows[0].Cells[6].Value = null;
+            dgv_cotthep.Rows[0].Cells[7].Value = null;
+
 
             MessageBox.Show("Đã sửa thành công! Mời bạn tiếp tục thao tác!", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -596,8 +597,8 @@ namespace DATN_TINHOC
         }
         #endregion
 
-        #region dgv_thongso_CellMouseClick
-        private void dgv_thongso_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        #region dgv_thongso_CellClick
+        private void dgv_thongso_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             txt_tencot.Text = dgv_thongso.CurrentRow.Cells[1].Value.ToString();
             txt_berongb.Text = dgv_thongso.CurrentRow.Cells[2].Value.ToString();
@@ -611,5 +612,6 @@ namespace DATN_TINHOC
             btn_xoa.Enabled = true;
         }
         #endregion
+
     }
 }
